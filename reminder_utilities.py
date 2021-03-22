@@ -1,10 +1,14 @@
 from replit import db
+from reminder import Reminder
 
-def add_reminder(message, reminder_date):
-  reminders_lst = db['reminders']
-
-def add_weekly_reminder(message, day_of_week, reminder_time):
-  pass
+def add_reminder(message, reminder_date, db_dict='reminders'):
+  reminders_lst = db[db_dict]
+  new_reminder = Reminder.create_reminder(message, reminder_date)
+  if not new_reminder:
+    return False
+  reminders_lst.append(new_reminder)
+  db[db_dict] = reminders_lst.sort(key=lambda r: r.month + r.day + r.year)
+  return new_reminder
 
 def remove_reminder(id):
   pass

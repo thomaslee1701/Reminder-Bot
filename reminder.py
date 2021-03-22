@@ -1,3 +1,5 @@
+import hashlib
+
 """
 Formats a date in the form: mm-dd-yyyy
 Returns the a dictionary with the proper mappings if successful
@@ -21,12 +23,23 @@ def format_date(reminder_date):
   }
   return date_dict
 
+"""
+Reminder objects have five attributes
+message: reminder message
+month: month that reminder is scheduled for
+day: day that reminder is scheduled for
+year: year that reminder is scheduled for
+sha_hash: unique id generated from message, month, day, and year
+"""
 class Reminder:
   def __init__ (self, message, mm, dd, yyyy):
     self.message = message
     self.month = mm
     self.day = dd
     self.year = yyyy
+    m = hashlib.sha256()
+    m.update(bytes(message+mm+dd+yyyy, 'utf-8'))
+    self.sha_hash = str(m.digest())
 
   """
   Creates a reminder object with a given message and date
