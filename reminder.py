@@ -21,18 +21,23 @@ def format_date(reminder_date):
   }
   return date_dict
 
-class reminder:
+class Reminder:
   def __init__ (self, message, mm, dd, yyyy):
     self.message = message
     self.month = mm
     self.day = dd
     self.year = yyyy
+
+  """
+  Creates a reminder object with a given message and date
+  If failed to create, returns False
+  """
   @staticmethod
-  def create_reminder(reminder_date):
+  def create_reminder(message, reminder_date):
     formatted_date = format_date(reminder_date)
     if not formatted_date:
       return False
-    return reminder(formatted_date['month'], formatted_date['day'], formatted_date['year'])
+    return Reminder(message, formatted_date['month'], formatted_date['day'], formatted_date['year'])
     
 """
 #Test cases for format_date
