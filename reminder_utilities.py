@@ -11,13 +11,20 @@ def add_reminder(message, reminder_date, db_dict='reminders'):
   return new_reminder
 
 def remove_reminder(id):
+  for key in db.keys():
+    db_dict = db[key]
+    for reminder in db[key]:
+      if reminder.id == id:
+        db_dict.remove(reminder)
+        db[key] = db_dict
+        return True
+  return False
+  
+def list_weekly_reminders():
   pass
 
-def print_weekly_reminders():
+def list_reminders(x):
   pass
 
-def print_reminders(x):
-  pass
-
-def print_all_reminders():
+def list_all_reminders():
   pass
