@@ -13,7 +13,7 @@ async def on_ready():
 """
 Messages have a couple of attributes:
 author: author of the message
-content: message content'
+content: message content
 channel: the channel that the message was sent in. channel.send
 sends a message to that channel
 """
@@ -23,8 +23,16 @@ async def on_message(message):
     return
   if not message.content.startswith('//'):
     return
-  message_contents = message.content.split()
-  if len(message_contents) >= 2 and message_contents[0] + " " + message_contents[1].lower() == ADD_REMINDER_COMMAND:
+  message_contents = message.content
+  if message.content.startswith(ADD_REMINDER_COMMAND):
+    #crops off the command part of the command
+    message_contents = message_contents[len(ADD_REMINDER_COMMAND):]
+    #selects just the message and date
+    message_message = message_contents[:len(message_contents)-10][1:]
+    message_date = message_contents[len(message_contents)-10:]
+
+    
+
     if len(message_contents) != 4:
       await message.channel.send('Incorrect operands! //add reminder **message date**')
     else:
