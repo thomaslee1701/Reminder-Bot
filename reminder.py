@@ -6,7 +6,7 @@ Returns the a dictionary with the proper mappings if successful
 Returns False if not
 """
 def format_date(reminder_date):
-  date_lst = reminder_date.split('-')
+  date_lst = reminder_date.replace(" ", "0").split('-')
   if len(date_lst) != 3:
     return False
   if not all([len(date_lst[0]) == 2, len(date_lst[1]) == 2, len(date_lst[2]) == 4]):
