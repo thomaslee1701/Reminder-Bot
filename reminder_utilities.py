@@ -11,7 +11,8 @@ def add_reminder(message, reminder_date, db_dict='reminders'):
   if not new_reminder:
     return False
   reminders_lst.append(new_reminder)
-  db[db_dict] = reminders_lst.sort(key=lambda r: r.month + r.day + r.year)
+  reminders_lst.sort(key=lambda r: r.month + r.day + r.year)
+  db[db_dict] = reminders_lst
   return new_reminder
 
 """

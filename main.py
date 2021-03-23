@@ -37,7 +37,8 @@ async def on_message(message):
       message_to_send = 'Failed to add reminder!\nCommon mistakes include: not formatting date to be mm-dd-yyyy'
     await message.channel.send(message_to_send)
   if len(message_contents) == 2 and message_contents[0] + " " + message_contents[1] == LIST_ALL_COMMAND:
-    list_all_reminders()
+    message_to_send = list_all_reminders()
+    await message.channel.send(message_to_send)
   
 
 client.run(os.getenv('TOKEN'))
