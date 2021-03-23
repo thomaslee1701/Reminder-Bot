@@ -46,3 +46,13 @@ def list_all_reminders():
                  .format(message=reminder.message, reminder_date=reminder.month + '-' + reminder.day + '-' + reminder.year, sha_hash=reminder.sha_hash)
       ret_str += '------------------------------\n'
   return ret_str
+
+"""
+initializes the lists in db if they do not already exist
+"""
+def initialize_db():
+  if 'reminders' not in db.keys() or type(db['reminders']) != list:
+    db['reminders'] = []
+  if 'weekly_reminders' not in db.keys() or type(db['weekly_reminders']) != list:
+    db['weekly_reminders'] = []
+  
