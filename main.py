@@ -1,12 +1,12 @@
 import discord
 import os
 
-from reminder_utilities import add_reminder, initialize_db
+from reminder_utilities import add_reminder, initialize_db, list_all_reminders
 
 client = discord.Client()
 
 ADD_REMINDER_COMMAND = '//add reminder'
-
+LIST_ALL_COMMAND = '//list all'
 @client.event
 async def on_ready():
   initialize_db()
@@ -25,6 +25,7 @@ async def on_message(message):
     return
   if not message.content.startswith('//'):
     return
+
   message_contents = message.content.split()
   if len(message_contents) >= 2 and message_contents[0] + " " + message_contents[1].lower() == ADD_REMINDER_COMMAND:
     message_message = " ".join(message_contents[2:len(message_contents)-1])
@@ -35,6 +36,8 @@ async def on_message(message):
     else:
       message_to_send = 'Failed to add reminder!\nCommon mistakes include: not formatting date to be mm-dd-yyyy'
     await message.channel.send(message_to_send)
+  if len(message_contents) == 2 and message_contents[0] + " " + message_contents[1] == LIST_ALL_COMMAND:
+    list_all_reminders()
   
 
 client.run(os.getenv('TOKEN'))
